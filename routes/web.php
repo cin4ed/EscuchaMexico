@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\State;
+use App\Models\Thread;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,10 @@ use App\Models\State;
 */
 
 Route::get('/', function () {
-    return view('welcome', ['states' => State::all()]);
+    return view('welcome', [
+        'states' => State::all(),
+        'threads' => Thread::all(),
+    ]);
 });
 
 Route::get('/dashboard', function () {
