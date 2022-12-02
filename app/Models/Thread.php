@@ -14,4 +14,9 @@ class Thread extends Model
         'state',
         'message',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
