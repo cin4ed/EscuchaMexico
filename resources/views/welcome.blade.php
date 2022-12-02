@@ -17,7 +17,9 @@
         </style>
         {{-- tailwind --}}
         @vite('resources/css/app.css')
-
+        {{-- font awesome --}}
+        @vite('node_modules/@fortawesome/fontawesome-free/css/fontawesome.css')
+        @vite('node_modules/@fortawesome/fontawesome-free/css/solid.min.css')
         {{-- jquery --}}
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="crossorigin="anonymous"></script>
     </head>
