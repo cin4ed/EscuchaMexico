@@ -20,7 +20,7 @@ use App\Models\Thread;
 Route::get('/', function () {
     return view('welcome', [
         'states' => State::all(),
-        'threads' => Thread::all(),
+        'threads' => Thread::with('user')->latest()->get(),
     ]);
 });
 
