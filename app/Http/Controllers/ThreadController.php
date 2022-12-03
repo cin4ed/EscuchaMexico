@@ -52,10 +52,13 @@ class ThreadController extends Controller
      * @param  \App\Models\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show(Thread $thread)
-    {
-        //
-    }
+	public function show(int $id)
+	{
+		error_log($id);
+	    return view('thread.show', [
+	    	'thread' => Thread::findOrFail($id)
+	    ]);
+	}
 
     /**
      * Show the form for editing the specified resource.
