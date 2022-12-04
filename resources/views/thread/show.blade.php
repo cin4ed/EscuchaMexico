@@ -41,10 +41,15 @@
 				</div>
 				{{-- thread --}}
 				<div class="relative col-span-4 self-start">
-					<div class="rounded-md shadow-md overflow-hidden bg-white">
-						<div class="flex justify-between items-center py-4 px-6 bg-neutral-200">
-							<h1 class="text-xl font-bold font-secondary text-neutral-600">{{ $thread->title }}</h1>
-							<span class="text-sm text-neutral-500">{{ $thread->created_at->format('j M Y, g:i a') }}</span>
+					{{-- date --}}
+					<div class="bg-neutral-200 w-fit px-3 py-2 text-sm rounded-md text-neutral-600">
+						{{-- <span>{{ __('Publicado el: ')}} --}}
+						<span>{{ $thread->created_at->format('j M Y, g:i a') }}</span>
+					</div>
+					{{-- thread itself --}}
+					<div class="rounded-md shadow-md overflow-hidden mt-2 bg-white">
+						<div class="gap-3 items-center py-4 px-6 bg-neutral-200">
+							<h1 class="text-xl break-words min-w-0 font-bold font-secondary content-start text-neutral-600">{{ $thread->title }}</h1>
 						</div>
 						<div class="py-4 px-6 pb-8">
 							<p>{{ $thread->message }}</p>
