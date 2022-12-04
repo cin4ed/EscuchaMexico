@@ -12,12 +12,26 @@
         {{-- jquery --}}
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="crossorigin="anonymous"></script>
     </head>
-    <body class="antialiased bg-gray-100 dark:bg-gray-900 dark:text-white">
-        <div class="relative max-w-6xl mx-auto min-h-screen px-3 py-2 bg-gray-100 dark:bg-gray-900">
-            
-            <div class="flex justify-between">
-                <div>
-                    <p class="dark:text-white">EscuchaMexico</p>
+    <body class="antialiased bg-primary-500">
+        <div style="background-image: url(/images/bg-quetzal.svg)">
+            <div class="relative max-w-6xl mx-auto min-h-screen px-3 py-2">
+                {{-- nav --}}
+                <div class="flex justify-between">
+                    <div>
+                        <p class="text-xl text-white">escuchamexico</p>
+                    </div>
+                    <div>
+                        @if (Route::has('login'))
+                            @auth
+                                <a href="{{ url('/dashboard') }}" class="text-sm py-1 px-3 rounded-sm bg-gray-200 hover:bg-gray-300 text-gray-800">Dashboard</a>
+                            @else
+                                <a href="{{ route('login') }}" class="text-sm py-1 px-3 rounded-sm bg-gray-200 hover:bg-gray-300 text-gray-800">Log in</a>
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="text-sm py-1 px-3 rounded-sm bg-gray-200 hover:bg-gray-300 text-gray-800">Register</a>
+                                @endif
+                            @endauth
+                        @endif
+                    </div>
                 </div>
                 <div>
                     @if (Route::has('login'))
@@ -75,6 +89,28 @@
                         <div class="p-4 rounded-md shadow-sm cursor-pointer hover:shadow-md bg-white dark:bg-slate-600">
                             <h1 class="text-lg font-semibold">{{ $thread->title }}</h1>
                             <p class="mt-2">{{ $thread->message }}</p>
+                @endauth
+                {{-- Threads --}}
+                <div class="mt-8 mb-4">
+                    <h1 class="text-xl font-semibold text-white mb-8">{{ __('Hilos') }}</h1>
+                    <div class="flex flex-col mt-2 gap-8">
+                        @foreach ($threads as $thread)
+                        <div class="relative thread" data-redirect-url="{{ url("/threads/{$thread->id}") }}">
+                            <img class="absolute -left-8 -top-5 rounded-md" src="https://www.gravatar.com/avatar/{{ md5(strtolower(trim($thread->user->email))) }}?s=55" alt="">
+                            <div class="flex flex-col rounded-md overflow-hidden">
+                                <div class="px-8 py-5 flex justify-between bg-gray-200 text-gray-800">
+                                    <div class="flex gap-5">
+                                        <p>{{ $thread->user->name }} - {{ $thread->state }}</p>
+                                    </div>
+                                    <div>
+                                        <p>{{ $thread->created_at->format('j M Y, g:i a') }}</p>
+                                    </div>
+                                </div>
+                                <div class="px-8 py-6 bg-white">
+                                    <h1 class="text-xl font-semibold">{{ $thread->title }}</h1>
+                                    <p class="mt-4 whitespace-pre">{{ $thread->message }}</p>
+                                </div>
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -85,6 +121,10 @@
             $("#form-title").on("input", function() {
                 $("#character-counter").text($(this).val().length);
             });
+						
+						$(".thread").click(function() {
+							window.location.href = $(this).data("redirect-url");
+						});
         </script>
     </body>
 </html>
